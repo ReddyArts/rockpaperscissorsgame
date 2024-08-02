@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="RPS.css">
+</head>
+<body>
+    <div>
+        
+       <h1 style="margin-top: 0px;margin-left: 45px;">Rock Paper Scissors Game</h1>
+       <div class="buttons">
+      <button style="background-color: white;" onclick="
+        playerGame('rock');
+        
+        
+        "
+       ><img class="button" src="Rock.png" ></button>
+      <button style="background-color: white;"
+      onclick="
+        playerGame('paper');
+        
+        "><img class="button" src="Paper.png" alt=""></button>
+      <button style="background-color: white;" onclick="
+      playerGame('scissors');
+      
+      " > <img class="button" src="Scissors.png" alt=""></button>
+      <p class="result result-css"></p>
+      <p class="moves move-css"></p>
+      <p class="score score-css"></p>
+     <div><button class="Reset" onclick="
+     score.Won=0;
+     score.Lose=0;
+     score.Tie=0;
+     localStorage.removeItem('score');
+     ondisplay();
+     
+     ">RESET SCORE</button></div> 
+    </div>
+    </div>
+    <script>
+        const score=JSON.parse(localStorage.getItem('score')) ||{ Won:0,Lose:0,
+     Tie:0};
+        function ondisplay() {
+         
+          let dscore= document.querySelector('.score');
+       dscore.innerHTML=`Won:${score.Won},Lose:${score.Lose},Tie:${score.Tie}`
+    
+        }
+        ondisplay();
+      
+      function pickComputerMove(){
+        const randomNumber= Math.random();
+        let computerMove='';
+        if(randomNumber>=0&&randomNumber<1/3){
+            computerMove='rock';
+        }
+        if(randomNumber>=1/3&&randomNumber<2/3){
+            computerMove='paper';
+        }
+        if(randomNumber>=2/3&&randomNumber<1){
+            computerMove='scissors';
+        }
+        return computerMove;
+      }  
+      function playerGame(playerMove){
+        const cmpmve=pickComputerMove();
+       let result='';
+       if (playerMove==='rock'){
+        if(cmpmve==='rock'){
+         result='Tie';
+       score.Tie++;
+        }
+       else if(cmpmve==='paper'){
+        result='You Lose';
+        score.Lose++;
+        }
+   else if(cmpmve==='scissors'){ 
+    result='You Won';
+    score.Won++;
+    }
+      }
+   else   if (playerMove==='paper'){
+        if(cmpmve==='rock'){
+            result='You Won';
+            score.Won++;
+        }
+        
+       else  if(cmpmve==='paper'){ 
+        result='Tie';
+        score.Tie++;
+        }
+   else if(cmpmve==='scissors'){
+    result='You Lose';
+   score.Lose++;
+    }
+      }
+     else if (playerMove==='scissors'){
+        if(cmpmve==='rock'){
+         result='You Lose';
+         score.Lose++;
+        }
+       else if(cmpmve==='paper'){
+        result='You Won';
+        score.Won++;
+        }
+    else if(cmpmve==='scissors'){
+    result='Tie';
+
+    score.Tie++;
+    }
+      }
+      
+      localStorage.setItem('score',JSON.stringify(score));
+ondisplay()
+ let dresult = document.querySelector('.result');
+          dresult.innerHTML=result;
+           let dmoves= document.querySelector('.moves');
+          dmoves.innerHTML=`You 
+          <img src="${playerMove}-emoji.png" class="move-icon" >
+    <img src="${cmpmve}-emoji.png" class="move-icon"> Computer`
+
+      }
+       
+     
+  
+  
+
+
+
+    
+        
+      
+    </script>
+   
+</body>
+</html>
